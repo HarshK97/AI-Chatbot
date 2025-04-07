@@ -1,8 +1,13 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import styles from "./Controls.module.css";
 
 export function Controls({ onSend }) {
   const [content, setContent] = useState("");
+  const textAreaRef = useRef(null);
+
+  useEffect(() => {
+    textAreaRef.current?.focus();
+  }, []);
 
   function handleContentChange(event) {
     setContent(event.target.value);
@@ -12,6 +17,7 @@ export function Controls({ onSend }) {
     if (content.length > 0) {
       onSend(content);
       setContent("");
+      textAreaRef.current?.focus();
     }
   }
 
@@ -26,11 +32,13 @@ export function Controls({ onSend }) {
     <div className={styles.Controls}>
       <div className={styles.TextAreaContainer}>
         <textarea
+          ref={textAreaRef}
           className={styles.TextArea}
-          placeholder="Message AI Chatbot"
+          placeholder="Message Pally"
           value={content}
           onChange={handleContentChange}
           onKeyDown={handleEnterPress}
+          autoFocus
         />
       </div>
       <button className={styles.Button} onClick={handleContentSend}>

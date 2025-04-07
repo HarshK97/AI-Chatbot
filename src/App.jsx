@@ -5,7 +5,9 @@ import { useState } from "react";
 import { Controls } from "./components/Controls/Controls";
 
 const googleAI = new GoogleGenerativeAI(import.meta.env.VITE_GOOGLE_AI_API_KEY);
-const gemini = googleAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+const gemini = googleAI.getGenerativeModel({
+  model: "tunedModels/pally-casual-training-data-v230b6a78aru",
+});
 const chat = gemini.startChat({ history: [] });
 
 function App() {
@@ -29,10 +31,8 @@ function App() {
   }
   return (
     <div className={styles.App}>
-      <header className={styles.Header}>
-        <img src="/chatbot.png" alt="chatbot" className={styles.logo} />
-        <h1 className={styles.Title}>Pal AI</h1>
-      </header>
+      <header className={styles.Header}></header>
+      {/* <h1 className={styles.Title}>Pally</h1> */}
       <div className={styles.ChatContainer}>
         <Chat messages={messages} />
       </div>
